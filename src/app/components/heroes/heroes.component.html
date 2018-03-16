@@ -22,7 +22,8 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Come From</th>
-            <th scope="col">Options</th>
+            <th scope="col">Biography</th>
+            <th scope="col" class="text-right">Options</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +32,15 @@
             <td>{{ heroes[kp].name }}</td>
             <td>{{ heroes[kp].comeFrom }}</td>
             <td>{{ heroes[kp].biography }}</td>
+            <td class="text-right">
+              <button [routerLink]="['/hero', kp]"
+                      type="button" name="button"
+                      class="btn btn-outline-success">Edit</button>
+
+              <button (click)="removeHero(kp)"
+                      type="button" name="button"
+                      class="btn btn-outline-danger">Remove</button>
+            </td>
           </tr>
         </tbody>
       </table>

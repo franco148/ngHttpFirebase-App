@@ -54,5 +54,10 @@ export class HeroesService {
                .map(response => response.json());
   }
 
+  removeHero(key$: string) {
+    let url = `${ this.heroURL }/${ key$ }.json`;
+
+    return this.http.delete(url).map(response => response.json());
+  }
 
 }

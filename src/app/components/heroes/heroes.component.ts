@@ -22,4 +22,21 @@ export class HeroesComponent implements OnInit {
   ngOnInit() {
   }
 
+  removeHero(key$:string) {
+
+    this._heroService.removeHero(key$)
+        .subscribe(response => {
+          if (response) {
+              console.log(response);
+          } else {
+            //All is ok - according firebase documentation
+            //At the first time this throws an exception. So that is because the array
+            //was updated (pipe does not know about it). We need to fix that.
+            // pure: false
+            //That is to be aware on changes.
+            delete this.heroes[key$];
+          }
+        });
+  }
+
 }
