@@ -48,5 +48,11 @@ export class HeroesService {
                .map(response => response.json());
   }
 
+  getHeroes() {
+
+    return this.http.get(this.heroesURL)
+               .map(response => response.json());
+  }
+
 
 }
