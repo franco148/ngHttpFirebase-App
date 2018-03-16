@@ -11,11 +11,13 @@ import { Hero } from '../../interfaces/hero.interface';
 export class HeroesComponent implements OnInit {
 
   heroes:Hero[] = [];
+  isLoading:boolean = true;
 
   constructor(private _heroService: HeroesService) {
     this._heroService.getHeroes().subscribe(data => {
       // console.log(data);
       this.heroes = data;
+      this.isLoading = false;
     });
   }
 
