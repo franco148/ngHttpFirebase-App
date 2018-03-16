@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Hero } from '../../interfaces/hero.interface';
+
+import { HeroesService } from '../../services/heroes.service';
 
 @Component({
   selector: 'app-hero-edit',
@@ -16,7 +19,8 @@ export class HeroEditComponent implements OnInit {
     comeFrom: ""
   }
 
-  constructor() { }
+  constructor(private _heroService: HeroesService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -24,6 +28,13 @@ export class HeroEditComponent implements OnInit {
 
   saveHero() {
     console.log(this.hero);
+    //If I leave this without a subscribe. this is not going to be fired.
+    //It means, will not be saved in the database.
+    this._heroService.postNewHero(this.hero)
+        .subscribe(data => {
+          this.router.navigate(['/hero', data.name]);
+        },
+        error => console.log(error));
   }
 
 }
