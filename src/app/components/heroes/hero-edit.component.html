@@ -1,0 +1,41 @@
+<h3>Hero <small>{{ hero.name }}</small> </h3>
+<button [routerLink]="['heroes']" type="button" name="button" class="btn btn-outline-danger">Back</button>
+<button (click)="addNewHero(heroForm)" type="button" name="button" class="btn btn-outline-success">New Hero</button>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+    <form (ngSubmit)="saveHero()"#heroForm="ngForm">
+      <div class="form-group">
+        <label>Name</label>
+        <input [(ngModel)]="hero.name"
+               type="text" name="name"
+               class="form-control"
+               placeholder="Hero name"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label>From</label>
+        <select [(ngModel)]="hero.comeFrom"
+                class="form-control" name="comeFrom">
+          <option value="Marvel">Marvel</option>
+          <option value="DC">DC</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Biography</label>
+        <textarea [(ngModel)]="hero.biography"
+                  name="biography" type="text" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="!heroForm.valid"
+                type="submit" class="btn btn-outline-primary">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

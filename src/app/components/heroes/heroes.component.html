@@ -1,0 +1,58 @@
+<h1>Heroes</h1>
+<hr>
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <!-- Without / it says from current path, add hero. It would not be correct -->
+    <button [routerLink]="['/hero', 'new']"
+            class="btn btn-outline-primary"
+            type="button" name="button">
+            New Hero
+    </button>
+  </div>
+</div>
+<br>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+    <div class="table-reponsive">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Come From</th>
+            <th scope="col">Biography</th>
+            <th scope="col" class="text-right">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kp of heroes | herokeys; let idx=index">
+            <th scope="row">{{ idx + 1}}</th>
+            <td>{{ heroes[kp].name }}</td>
+            <td>{{ heroes[kp].comeFrom }}</td>
+            <td>{{ heroes[kp].biography }}</td>
+            <td class="text-right">
+              <button [routerLink]="['/hero', kp]"
+                      type="button" name="button"
+                      class="btn btn-outline-success">Edit</button>
+
+              <button (click)="removeHero(kp)"
+                      type="button" name="button"
+                      class="btn btn-outline-danger">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="(heroes | herokeys).length === 0 && !isLoading" class="alert alert-info" role="alert">
+        <strong>There are no </strong> heroes to display
+      </div>
+
+      <div *ngIf="isLoading" class="alert alert-warning" role="alert">
+        <strong>Loading....</strong> Please wait!!!
+      </div>
+
+    </div>
+  </div>
+</div>
