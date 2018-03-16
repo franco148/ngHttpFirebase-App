@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 export class HeroesService {
 
   heroesURL:string = "https://ngheroesfirebase.firebaseio.com/heroes.json";
+  heroURL:string = "https://ngheroesfirebase.firebaseio.com/heroes/";
 
   constructor(private http:Http) { }
 
@@ -24,5 +25,21 @@ export class HeroesService {
                  return response.json();
                });
   }
+
+  udpateHero(hero: Hero, key$:string) {
+    let body = JSON.stringify(hero);
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    let url = `${ this.heroURL }/${ key$ }.json`;
+
+    return this.http.put(url, body, { headers })
+               .map(response => {
+                 console.log(response.json());
+                 return response.json();
+               });
+  }
+
 
 }
