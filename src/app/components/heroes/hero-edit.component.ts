@@ -16,10 +16,9 @@ export class HeroEditComponent implements OnInit {
   hero:Hero = {
     name: "",
     biography: "",
-    comeFrom: ""
+    comeFrom: "Marvel"
   }
 
-  isNew:boolean = false;
   heroKey:string;
 
   constructor(private _heroService: HeroesService,
@@ -28,12 +27,13 @@ export class HeroEditComponent implements OnInit {
     this.routing.params.subscribe(params=>{
       this.heroKey = params['id'];
 
-      // if (this.heroKey == "new") {
-      //     this.isNew = true;
-      // } else {
-      //   this.isNew = false;
-      // }
+      if (this.heroKey !== "new") {
+          this._heroService.getHero(this.heroKey)
+                           .subscribe(hero => this.hero = hero);
+      }
     });
+
+
  }
 
   ngOnInit() {
@@ -66,6 +66,13 @@ export class HeroEditComponent implements OnInit {
           },
           error => console.log(error));
     }
+  }
+
+  addNewHero(form: NgForm) {
+    this.router.navigate(['/hero', 'new']);
+    form.reset({
+      comeFrom: "Marvel"
+    });
   }
 
 }
